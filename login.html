@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
+      /* Font poppins */
+      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        color: inherit;
+        border: none;
+        outline: none;
+      }
+
+      body {
+        background: url(/img/background.jpg) no-repeat;
+        background-size: cover;
+        background-position: center;
+        min-height: 100vh;
+        font-family: "Poppins", sans-serif;
+        font-size: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .form-box {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        min-height: 500px;
+        background: #1a1c25;
+        color: #fff;
+        border: 2px solid #fff;
+        border-radius: 15px;
+        overflow: hidden;
+        position: relative;
+        transition: transform 0.6s ease, height 0.2s ease-in-out;
+        box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.8);
+        margin: 60px 0;
+      }
+
+      .form-box form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        padding: 40px 0;
+        position: absolute;
+        transition: all 0.5s ease;
+      }
+
+      .form-box .register-form {
+        transform: translateX(-100%);
+      }
+
+      .input-box {
+        width: 80%;
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        border-bottom: 2px solid #fff;
+        margin: 30px 0;
+      }
+
+      .register-form .input-box {
+        margin: 20px 0;
+      }
+
+      .input-box input {
+        width: 90%;
+        position: absolute;
+        color: #fff;
+        background: none;
+        font-size: 16px;
+      }
+
+      .input-box label {
+        transition: 0.4s;
+      }
+
+      .input-box input:focus ~ label,
+      .input-box input:valid ~ label {
+        transform: translateY(-25px);
+      }
+
+      .input-box i {
+        font-size: 20px;
+      }
+
+      .checkbox {
+        width: 80%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .register-form .checkbox {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 10px;
+      }
+
+      .submit-btn {
+        width: 80%;
+        height: 40px;
+        cursor: pointer;
+        border-radius: 20px;
+        margin: 20px 0;
+        border: none;
+        transition: 0.5s ease-in-out;
+        color: #000;
+        font-weight: bold;
+        font-size: 16px;
+      }
+
+      .submit-btn:hover {
+        background: black;
+        color: #fff;
+      }
+
+      .form-box h5,
+      .checkbox label,
+      .checkbox input {
+        cursor: pointer;
+      }
+
+      .form-box h1 {
+        margin-bottom: 20px;
+        font-size: 28px;
+      }
+
+      .change-form {
+        height: 580px;
+      }
+
+      .change-form .login-form {
+        transform: translateX(100%);
+      }
+
+      .change-form .register-form {
+        transform: translateX(0%);
+      }
+
+      /* Back button styling */
+      .back-btn {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 999;
+      }
+
+      .back-btn a {
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(10px);
+        padding: 10px 15px;
+        border-radius: 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+      }
+
+      .back-btn a:hover {
+        background: black;
+        transform: translateX(-5px);
+      }
+
+      .back-btn i {
+        margin-right: 3px;
+        color: white;
+      }
+
+      .back-btn p {
+        color: white;
+        font-weight: 500;
+        margin: 0;
+      }
+
+      /* Message styling */
+      .message {
+        width: 80%;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 10px 0;
+        text-align: center;
+        display: none;
+      }
+
+      .error {
+        background-color: rgba(255, 0, 0, 0.3);
+        border: 1px solid rgba(255, 0, 0, 0.5);
+      }
+
+      .success {
+        background-color: rgba(0, 255, 0, 0.3);
+        border: 1px solid rgba(0, 255, 0, 0.5);
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 480px) {
+        body {
+          padding: 10px;
+          font-size: 14px;
+        }
+
+        .form-box {
+          max-width: 320px;
+          min-height: 450px;
+        }
+
+        .form-box h1 {
+          font-size: 24px;
+        }
+
+        .input-box {
+          width: 85%;
+        }
+
+        .checkbox {
+          width: 85%;
+          font-size: 14px;
+        }
+
+        .submit-btn {
+          width: 85%;
+          height: 36px;
+          font-size: 14px;
+        }
+
+        .back-btn {
+          top: 10px;
+          left: 10px;
+        }
+
+        .back-btn a {
+          padding: 8px 12px;
+        }
+
+        .change-form {
+          height: 520px;
+        }
+
+        .message {
+          width: 85%;
+          font-size: 12px;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .form-box {
+          max-width: 280px;
+        }
+
+        .input-box i {
+          font-size: 16px;
+        }
+
+        .input-box input {
+          font-size: 14px;
+        }
+
+        .checkbox {
+          font-size: 12px;
+        }
+      }
+    </style>
+    <title>Login</title>
+  </head>
+  <body>
+    <div class="back-btn">
+      <a href="index.html">
+        <i class="fa-solid fa-arrow-left"></i>
+        <p>Back</p>
+      </a>
+    </div>
+    <div class="form-box">
+      <form id="login-form" class="login-form">
+        <h1>Login</h1>
+        <div id="login-message" class="message"></div>
+        <div class="input-box">
+          <input type="email" id="login-email" required />
+          <label>Email</label>
+          <i class="fa-solid fa-envelope"></i>
+        </div>
+        <div class="input-box">
+          <input type="password" id="login-password" required />
+          <label>Password</label>
+          <i class="fa-solid fa-lock"></i>
+        </div>
+        <div class="checkbox">
+          <span>
+            <input type="checkbox" id="login-checkbox" />
+            <label for="login-checkbox">Remember Me</label>
+          </span>
+          <h5>Forget password?</h5>
+        </div>
+        <button type="submit" class="submit-btn">Login</button>
+        <h5 class="register-btn">Don't have an account? Register</h5>
+      </form>
+      <form id="register-form" class="register-form">
+        <h1>Register</h1>
+        <div id="register-message" class="message"></div>
+        <div class="input-box">
+          <input type="text" id="register-username" required />
+          <label>Username</label>
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="input-box">
+          <input type="email" id="register-email" required />
+          <label>Email</label>
+          <i class="fa-solid fa-envelope"></i>
+        </div>
+        <div class="input-box">
+          <input type="password" id="register-password" required />
+          <label>Password</label>
+          <i class="fa-solid fa-lock"></i>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="register-checkbox" required />
+          <label for="register-checkbox"
+            >I agree to the terms & conditions</label
+          >
+        </div>
+        <button type="submit" class="submit-btn">Register</button>
+        <h5 class="login-btn">Registered before? Login</h5>
+      </form>
+    </div>
+    <script>
+      // JavaScript for form switching
+      const formBox = document.querySelector(".form-box");
+      const loginBtn = document.querySelector(".login-btn");
+      const registerBtn = document.querySelector(".register-btn");
+
+      registerBtn.addEventListener("click", () => {
+        formBox.classList.add("change-form");
+      });
+
+      loginBtn.addEventListener("click", () => {
+        formBox.classList.remove("change-form");
+      });
+
+      // Check if user is already logged in
+      document.addEventListener("DOMContentLoaded", () => {
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+        // If already logged in, show message and redirect
+        if (isLoggedIn) {
+          const messageDiv = document.getElementById("login-message");
+          messageDiv.textContent = "You are already logged in. Redirecting...";
+          messageDiv.className = "message success";
+          messageDiv.style.display = "block";
+
+          setTimeout(() => {
+            window.location.href = "index.html";
+          }, 2000);
+        }
+
+        // Check for remembered email
+        const rememberedEmail = localStorage.getItem("rememberedEmail");
+        if (rememberedEmail) {
+          document.getElementById("login-email").value = rememberedEmail;
+          document.getElementById("login-checkbox").checked = true;
+        }
+      });
+
+      // Login form submission
+      document.getElementById("login-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById("login-email").value;
+        const password = document.getElementById("login-password").value;
+        const messageDiv = document.getElementById("login-message");
+
+        // Simple validation
+        if (!email || !password) {
+          messageDiv.textContent = "Please fill in all fields";
+          messageDiv.className = "message error";
+          messageDiv.style.display = "block";
+          return;
+        }
+
+        // Check if email is registered
+        const registeredEmail = localStorage.getItem("registeredEmail");
+
+        if (!registeredEmail || email !== registeredEmail) {
+          messageDiv.textContent =
+            "Email not registered. Please register first.";
+          messageDiv.className = "message error";
+          messageDiv.style.display = "block";
+          return;
+        }
+
+        // Check password (in a real app, this would be handled securely on server)
+        // Here we're just doing a simple check as this is a frontend-only demo
+        const registeredPassword = localStorage.getItem("registeredPassword");
+        if (registeredPassword && password !== registeredPassword) {
+          messageDiv.textContent = "Incorrect password";
+          messageDiv.className = "message error";
+          messageDiv.style.display = "block";
+          return;
+        }
+
+        // Display success message
+        messageDiv.textContent = "Login successful!";
+        messageDiv.className = "message success";
+        messageDiv.style.display = "block";
+
+        // Remember me functionality
+        if (document.getElementById("login-checkbox").checked) {
+          localStorage.setItem("rememberedEmail", email);
+        } else {
+          localStorage.removeItem("rememberedEmail");
+        }
+
+        // Set login state in localStorage
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("isLoggedIn", "true");
+
+        // Redirect after 2 seconds
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 2000);
+      });
+
+      // Register form submission
+      document
+        .getElementById("register-form")
+        .addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          const username = document.getElementById("register-username").value;
+          const email = document.getElementById("register-email").value;
+          const password = document.getElementById("register-password").value;
+          const terms = document.getElementById("register-checkbox").checked;
+          const messageDiv = document.getElementById("register-message");
+
+          // Validate form
+          if (!username || !email || !password) {
+            messageDiv.textContent = "Please fill in all fields";
+            messageDiv.className = "message error";
+            messageDiv.style.display = "block";
+            return;
+          }
+
+          if (!terms) {
+            messageDiv.textContent = "Please agree to the terms and conditions";
+            messageDiv.className = "message error";
+            messageDiv.style.display = "block";
+            return;
+          }
+
+          if (password.length < 6) {
+            messageDiv.textContent = "Password must be at least 6 characters";
+            messageDiv.className = "message error";
+            messageDiv.style.display = "block";
+            return;
+          }
+
+          // Display success message
+          messageDiv.textContent = "Registration successful!";
+          messageDiv.className = "message success";
+          messageDiv.style.display = "block";
+
+          // Store registration data
+          localStorage.setItem("registeredUsername", username);
+          localStorage.setItem("registeredEmail", email);
+          localStorage.setItem("registeredPassword", password); // In a real app, never store passwords in localStorage!
+
+          // Switch to login form after 2 seconds
+          setTimeout(() => {
+            formBox.classList.remove("change-form");
+            document.getElementById("login-email").value = email;
+          }, 2000);
+        });
+    </script>
+  </body>
+</html>
